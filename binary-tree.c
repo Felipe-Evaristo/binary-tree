@@ -1,67 +1,94 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h> 
 
-struct no
+typedef struct Node
 {
-    struct no *direita;
-    int valor;
-    struct no *esquerda;
-};
-struct no *no
+	struct Node *right;
+	int data;
+	struct Node *left;
+} Node;
 
-struct no *novoNo(int data)
+Node *createNode(int data)
 {
-    struct no *no = (struct no *)malloc(sizeof(struct no));
+	Node *node = (Node *)malloc(sizeof(Node));
 
-    no->esquerda = NULL;
-    no->valor = valor;
-    no->direita = NULL;
+	node->left = NULL;
+	node->data = data;
+	node->right = NULL;
 
-    return node;
+	return node;
 }
 
-void criarArvoreVazia()
+void *insertNode(struct Node* mainNode, int newValue)
 {
-	
-	
+	Node *newNode = createNode(newValue);
 
+	if (newValue == mainNode->data) {
+		printf("Nao e permitido incluir valores duplicados \n");
+		return 0;
+	}
+
+	if (newValue > mainNode->data) {
+		if (mainNode->right != NULL) {
+			insertNode(mainNode->right, newValue);
+		} else {
+			mainNode->right = newNode;
+		}
+	} else {
+		if (mainNode->left != NULL) {
+			insertNode(mainNode->left, newValue);
+		} else {
+			mainNode->left = newNode;
+		}
+	}
 }
 
-int main(void)
+int main()
 {
-	setlocale(LC_ALL,'PORTUGUESE');
+	Node *mainNode = NULL;
 
-    int continuar=1;
+	do
+	{
+		printf("1. Criar arvore vazia \n");
+		printf("2. Inserir elemento \n");
+		printf("3. Exibir arvore em pre-ordem \n");
+		printf("4. Exibir arvore em pos-ordem \n");
+		printf("5. Exibir arvore em ordem simetrica \n");
+		printf("6. Buscar elemento x na arvore \n");
+		printf("7. Excluir elemento x da arvore \n");
+		printf("8. Editar elemento x da arvore \n");
+		printf("9. Balancear arvore \n");
 
-    do
-    {
-        printf("\n\t Árvore Binária \n\n");
-        printf("1. Criar Árvo Vazia\n");
-        printf("2. criar novo nó\n");
-        printf("0. Sair\n");
+		int option = 0;
 
-        scanf("%d", &continuar);
-        system("cls || clear");
+		scanf("%d", &option);
+		system("cls || clear");
 
-        switch(continuar)
-        {
-            case 1:
-                criarArvoreVazia();
-                break;
+		switch(option)
+		{
+			case 1:
+				printf("Digite o valor: ");
 
-            case 2:
-                novoNo();
-                break;
+				int data = 0;
+				scanf("%d", &data);
 
-            case 0:
-                break;
+				mainNode = createNode(data);
+				break;
+			case 2:
+				if (mainNode == NULL) {
+					printf("Impossivel inserir pois a arvore ainda nao foi criada");
+					return 0;
+				}
 
-            default:
-                printf("Digite uma opcao valida\n");
-        }
-    } while(continuar);
+				printf("Digite o valor: ");
+
+				data = 0;
+				scanf("%d", &data);
+
+				mainNode = insertNode(mainNode, data);
+				break;
+			default:
+				printf("Digite uma opcao valida\n");
+		}
+	} while(1);
 }
-
-
-
