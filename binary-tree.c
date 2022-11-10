@@ -1,3 +1,8 @@
+// AUTORES - 10/11/2022
+// Rodrigo Maganha Stramantinoli
+// Felipe Evaristo dos Santos
+// Roger Santos Barreto
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
