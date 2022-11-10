@@ -19,26 +19,55 @@ Node *createNode(int data)
 	return node;
 }
 
-void *insertNode(struct Node* mainNode, int newValue)
+void *insertNode(struct Node* node, int newValue)
 {
 	Node *newNode = createNode(newValue);
 
-	if (newValue == mainNode->data) {
+	if (newValue == node->data) {
 		printf("Nao e permitido incluir valores duplicados \n");
 		return 0;
 	}
 
-	if (newValue > mainNode->data) {
-		if (mainNode->right != NULL) {
-			insertNode(mainNode->right, newValue);
+	if (newValue > node->data) {
+		if (node->right != NULL) {
+			insertNode(node->right, newValue);
 		} else {
-			mainNode->right = newNode;
+			node->right = newNode;
 		}
 	} else {
-		if (mainNode->left != NULL) {
-			insertNode(mainNode->left, newValue);
+		if (node->left != NULL) {
+			insertNode(node->left, newValue);
 		} else {
-			mainNode->left = newNode;
+			node->left = newNode;
+		}
+	}
+}
+
+void pre(struct Node* node)
+{
+	printf("%d", node->data);
+
+	if (node->left) {
+		printf("-");
+		pre(node->left);
+	}
+
+	if (node->right) {
+		printf("-");
+		pre(node->right);
+	}
+}
+
+void post(struct Node* node)
+{
+	if (node->left) {
+		pre(node->left);
+	} else {
+		if (node->right) {
+			pre(node->right);
+		} else {
+			printf("-");
+			printf("%d", node->data);
 		}
 	}
 }
@@ -85,7 +114,17 @@ int main()
 				data = 0;
 				scanf("%d", &data);
 
-				mainNode = insertNode(mainNode, data);
+				insertNode(mainNode, data);
+				break;
+			case 3:
+				printf("Pre Ordem: ");
+				pre(mainNode);
+				printf("\n");
+				break;
+			case 4:
+				printf("Pos Ordem: ");
+				post(mainNode);
+				printf("\n");
 				break;
 			default:
 				printf("Digite uma opcao valida\n");
