@@ -370,8 +370,14 @@ int main()
 			else
 			{
 				printf("Node Encontrado! \n");
-				printf("Filho da esquerda: %d \n", node->left->data);
-				printf("Filho da direita: %d \n", node->right->data);
+				if (node->left != NULL)
+				{
+					printf("No Esquerdo: %d \n", node->left->data);
+				}
+				if (node->right != NULL)
+				{
+					printf("No Direito: %d \n", node->right->data);
+				}
 			}
 			break;
 		case 7:
