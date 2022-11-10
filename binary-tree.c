@@ -201,34 +201,6 @@ void editNode(struct Node *node, int value)
 	nodeToEdit->data = newValue;
 }
 
-struct ListNode *createListFromTree(struct Node *root)
-{
-	ListNode *list = NULL;
-	ListNode *current = NULL;
-
-	if (root == NULL)
-	{
-		return NULL;
-	}
-
-	list = (ListNode *)malloc(sizeof(ListNode));
-	list->data = root->data;
-	list->next = NULL;
-	current = list;
-
-	if (root->left != NULL)
-	{
-		current->next = createListFromTree(root->left);
-	}
-
-	if (root->right != NULL)
-	{
-		current->next = createListFromTree(root->right);
-	}
-
-	return list;
-}
-
 void insertIntoRight(	Node *root,struct ListNode *listHead, int subSize)
 {
 	if (subSize > 0){
@@ -268,39 +240,6 @@ void insertIntoLeft(	Node *root,struct ListNode *listHead, int subSize)
 		}
 	}
 }
-
-struct Node *createBalanceTreeFromList(struct ListNode *listHead)
-{
-	int size = 0;
-	int subSize = 0;
-	ListNode *aux = listHead;
-	while (aux != NULL)
-	{
-		size++;
-		aux = aux->next;
-	}
-
-	aux = listHead;
-	int middle = (size / 2) + 1;
-
-
-	for (int i = 1; i < middle; i++)
-	{
-		if (i == middle){
-			Node *root = createNode(aux->data);
-			subSize = size - middle;
-			insertIntoRight(root, aux, subSize);
-			subSize = middle - 1;
-			insertIntoLeft(root, listHead, subSize);
-			return root;
-		}
-		aux = aux->next;
-	}
-
-	return NULL;
-}
-
-
 
 int main()
 {
@@ -396,6 +335,8 @@ int main()
 			printf("Digite o valor do nO que deseja editar: ");
 			data = 0;
 			scanf("%d", &data);
+
+			editNode(mainNode, data);
 
 			break;
 		case 9:
